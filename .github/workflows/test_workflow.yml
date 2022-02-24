@@ -1,0 +1,8 @@
+name: test_installation
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt update && sudo apt install jellyfish
+      - run: jellyfish --version
