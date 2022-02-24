@@ -12,10 +12,10 @@ jobs:
         uses: actions/setup-python@v2
         with: 
           python-version: ${{ matrix.python-version }}
-      -name: Install dependencies
+      - name: Install dependencies
         run: |
           sudo apt update && sudo apt install jellyfish
           pip install pandas
           jellyfish --version
-      -name: Run naive pipeline
+      - name: Run naive pipeline
         run: bash v0/test_v0.sh
