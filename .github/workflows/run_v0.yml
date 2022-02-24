@@ -1,5 +1,8 @@
 name: run v0 with bash
-on: [push]
+on:
+  push:
+    paths:
+      - 'v0/**'
 jobs:
   build:
     runs-on: ubuntu-latest
