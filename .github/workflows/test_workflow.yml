@@ -3,6 +3,13 @@ on: [push]
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [2.7, 3.8]
     steps:
+      - uses: actions/checkout@v2
+      - name: Run naive workflow
       - run: sudo apt update && sudo apt install jellyfish
+      - run: pip install pandas
       - run: jellyfish --version
+      - run: bash v0/test_v0.sh
