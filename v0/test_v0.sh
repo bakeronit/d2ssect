@@ -29,4 +29,4 @@ python2 v0/Calculate_D2S.py --kmerset1 data/nkz/FI-2-21_S28.nkz --kmerset1_freq 
 python2 v0/Calculate_D2S.py --kmerset1 data/nkz/MI-1-19_S9.nkz --kmerset1_freq data/charfreq/MI-1-19_S9.CharFreq \
 	--kmerset2 data/nkz/TAY_9_S28.nkz --kmerset2_freq data/charfreq/TAY_9_S28.CharFreq --D2S_out data/d2s/MI-1-19_S9-TAY_9_S28.txt
 
-python v0/phylip_amalg.py --data data/d2s --matrix data/matrix.txt
+python3 v0/phylip_amalg.py --data data/d2s --matrix data/matrix.txt
