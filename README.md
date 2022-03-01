@@ -8,3 +8,14 @@ The originally version of this pipeline including three big steps:
 3. generate a matrix
 
 Our goal is to integrate these three steps and try to increase the speed of d2s calculation.
+
+
+## Installation
+
+1. Install dependencies
+	- Jellyfish 2.3.0
+	- python 3.8
+	- pandas
+
+
+
