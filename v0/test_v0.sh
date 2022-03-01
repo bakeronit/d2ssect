@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+# Generates benchmark data
+
 jellyfish count -m 19 -t 5 -s 1G -o data/jf/DI-1-1_S6.jf data/fasta/DI-1-1_S6.fasta
 jellyfish count -m 19 -t 5 -s 1G -o data/jf/FI-2-21_S28.jf data/fasta/FI-2-21_S28.fasta
 jellyfish count -m 19 -t 5 -s 1G -o data/jf/MI-1-19_S9.jf data/fasta/MI-1-19_S9.fasta

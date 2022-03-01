@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'v0/**'
+      - 'd2ssect/**'
+      - 'd2ssect.py'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,3 +24,6 @@ jobs:
           jellyfish --version
       - name: Run naive pipeline
         run: bash v0/test_v0.sh
+      - name: Run unittests
+        run: python3 test.py
+        
