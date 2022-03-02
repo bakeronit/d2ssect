@@ -5,6 +5,7 @@ import math
 import logging
 import argparse
 import sys
+import os
 DESCRIPTION = '''
 Calculate the D2S score between two Kmer sets.
 '''
@@ -62,8 +63,8 @@ def main():
         d2Score_kmerset1_VS_kmerset2, d2Score_kmerset1_VS_kmerset1, d2Score_kmerset2_VS_kmerset2)
     logger.info('D2S_distance:%s', D2S_distance)  # INFO
 
-    write_string = args.kmerset1 + ';' + \
-        args.kmerset2 + ';' + str(D2S_distance)+'\n'
+    write_string = os.path.basename(args.kmerset1) + ';' + \
+        os.path.basename(args.kmerset2) + ';' + str(D2S_distance)+'\n'
 
     # args.D2S_out.write(args.kmerset1 + ';' + args.kmerset2 +
     #                    ';' + str(D2S_distance)+'\n')
