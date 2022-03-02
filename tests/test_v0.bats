@@ -11,7 +11,7 @@ setup() {
     cd $DIR/..
     jellyfish_count $TEST_TEMP_DIR
     jellyfish_dump $TEST_TEMP_DIR
-    cat data/charfreq/D1-1-1_S6.CharFreq
+    cat ${TEST_TEMP_DIR}/DI-1-1_S6.CharFreq
     #cal_d2s $TEST_TEMP_DIR
     #generate_matrix $TEST_TEMP_DIR
 }
@@ -21,7 +21,7 @@ teardown() {
 }
 
 check_charfreq() {
-    cmp data/DI-1-1_S6.CharFreq ${TEST_TEMP_DIR}/DI-1-1_S6.CharFreq
+    cmp data/charfreq/DI-1-1_S6.CharFreq ${TEST_TEMP_DIR}/DI-1-1_S6.CharFreq
 }
 
 #@test "the output from jellyfish should be the same, this is a binary compressed file" 
