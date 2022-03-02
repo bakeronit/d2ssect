@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g bats
-          sudo apt update && sudo apt install jellyfish
+          sudo apt install jellyfish
           pip3 install pandas
           jellyfish --version
           git submodule add https://github.com/bats-core/bats-support.git tests/test_helper/bats-support
