@@ -11,7 +11,7 @@ setup() {
     cd $DIR/..
     jellyfish_count $TEST_TEMP_DIR
     jellyfish_dump $TEST_TEMP_DIR
-    cal_d2s $TEST_TEMP_DIR
+    #cal_d2s $TEST_TEMP_DIR
 }
 
 teardown() {
