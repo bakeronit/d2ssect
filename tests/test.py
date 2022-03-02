@@ -6,6 +6,6 @@ class TestD2Scal(unittest.TestCase):
 
     def test_d2s_scores(self):
         """
-        Test wether it give the same score
+        Test wether it gives the same score
         """
         

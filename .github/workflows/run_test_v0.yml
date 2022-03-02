@@ -1,8 +1,8 @@
-name: run v0 with bash
+name: run test v0 
 on:
   push:
     paths:
-      - 'v0/**'
+      - 'tests/test_v0.sh'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,8 +17,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          npm install -g bats
           sudo apt update && sudo apt install jellyfish
           pip3 install pandas
           jellyfish --version
-      - name: Run naive pipeline
-        run: bash v0/run_v0.sh
+      - name: Run tests
+        run: bash tests/test_v0.sh
