@@ -54,7 +54,6 @@ check_matrix() {
     cmp data/matrix.txt ${TEST_TEMP_DIR}/matrix.txt
 }
 
-
 @test "the output from jellyfish count" {
     run check_jf
     [ "$output" = "" ]
