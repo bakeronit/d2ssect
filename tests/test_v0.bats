@@ -9,10 +9,12 @@ setup() {
     TEST_TEMP_DIR="$(mktemp -d)"
     source alignment_free_tool_workflow.sh
     cd $DIR/..
-    jellyfish_count $TEST_TEMP_DIR
-    jellyfish_dump $TEST_TEMP_DIR
-    cal_d2s $TEST_TEMP_DIR
-    generate_matrix $TEST_TEMP_DIR
+    jellyfish_count $TEST_TEMP_DIR DI-1-1_S6
+    jellyfish_count $TEST_TEMP_DIR FI-2-21_S28
+    jellyfish_dump $TEST_TEMP_DIR DI-1-1_S6 
+    jellyfish_dump $TEST_TEMP_DIR FI-2-21_S28
+    cal_d2s $TEST_TEMP_DIR DI-1-1_S6 FI-2-21_S28
+    #generate_matrix $TEST_TEMP_DIR
 }
 
 teardown() {
@@ -69,10 +71,10 @@ check_matrix() {
     [ "$output" = "" ] 
 }
 
-#@test "the output from d2s" {
-#    run check_d2s
-#    [ "$output" = "" ]
-#}
+@test "the output from d2s" {
+    run check_d2s
+    [ "$output" = "" ]
+}
 
 #@test "the final matrix" {
 #    run check_matrix
