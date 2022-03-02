@@ -11,9 +11,8 @@ setup() {
     cd $DIR/..
     jellyfish_count $TEST_TEMP_DIR
     jellyfish_dump $TEST_TEMP_DIR
-    cat ${TEST_TEMP_DIR}/DI-1-1_S6.CharFreq
-    cal_d2s $TEST_TEMP_DIR
-    generate_matrix $TEST_TEMP_DIR
+    #cal_d2s $TEST_TEMP_DIR
+    #generate_matrix $TEST_TEMP_DIR
 }
 
 teardown() {
@@ -22,23 +21,23 @@ teardown() {
 
 check_jf() {
     cmp data/jf/DI-1-1_S6.jf ${TEST_TEMP_DIR}/DI-1-1_S6.jf
-    cmp data/jf/FI-2-21_S28.jf ${TEST_TEMP_DIR}/FI-2-21_S28.jf
-    cmp data/jf/MI-1-19_S9.jf ${TEST_TEMP_DIR}/MI-1-19-S9.jf
-    cmp data/jf/TAY_9_S28.jf ${TEST_TEMP_DIR}/TAY_9_S28.jf
+    #cmp data/jf/FI-2-21_S28.jf ${TEST_TEMP_DIR}/FI-2-21_S28.jf
+    #cmp data/jf/MI-1-19_S9.jf ${TEST_TEMP_DIR}/MI-1-19-S9.jf
+    #cmp data/jf/TAY_9_S28.jf ${TEST_TEMP_DIR}/TAY_9_S28.jf
 }
 
 check_charfreq() {
     cmp data/charfreq/DI-1-1_S6.CharFreq ${TEST_TEMP_DIR}/DI-1-1_S6.CharFreq
-    cmp data/charfreq/FI-2-21_S28.CharFreq ${TEST_TEMP_DIR}/FI-2-21_S28.CharFreq
-    cmp data/charfreq/MI-1-19_S9.CharFreq ${TEST_TEMP_DIR}/MI-1-19-S9.CharFreq
-    cmp data/charfreq/TAY_9_S28.CharFreq ${TEST_TEMP_DIR}/TAY_9_S28.CharFreq
+    #cmp data/charfreq/FI-2-21_S28.CharFreq ${TEST_TEMP_DIR}/FI-2-21_S28.CharFreq
+    #cmp data/charfreq/MI-1-19_S9.CharFreq ${TEST_TEMP_DIR}/MI-1-19-S9.CharFreq
+    #cmp data/charfreq/TAY_9_S28.CharFreq ${TEST_TEMP_DIR}/TAY_9_S28.CharFreq
 }
 
 check_nkz() {
     cmp data/nkz/DI-1-1_S6.nkz ${TEST_TEMP_DIR}/DI-1-1_S6.nkz
-    cmp data/nkz/FI-2-21_S28.nkz ${TEST_TEMP_DIR}/FI-2-21_S28.nkz
-    cmp data/nkz/MI-1-19_S9.nkz ${TEST_TEMP_DIR}/MI-1-19-S9.nkz
-    cmp data/nkz/TAY_9_S28.nkz ${TEST_TEMP_DIR}/TAY_9_S28.nkz
+    #cmp data/nkz/FI-2-21_S28.nkz ${TEST_TEMP_DIR}/FI-2-21_S28.nkz
+    #cmp data/nkz/MI-1-19_S9.nkz ${TEST_TEMP_DIR}/MI-1-19-S9.nkz
+    #cmp data/nkz/TAY_9_S28.nkz ${TEST_TEMP_DIR}/TAY_9_S28.nkz
 }
 
 check_d2s() {
@@ -69,13 +68,13 @@ check_matrix() {
     [ "$output" = "" ] 
 }
 
-@test "the output from d2s" {
-    run check_d2s
-    [ "$output" = "" ]
-}
+#@test "the output from d2s" {
+#    run check_d2s
+#    [ "$output" = "" ]
+#}
 
-@test "the final matrix" {
-    run check_matrix
-    [ "$output" = "" ]
-}
+#@test "the final matrix" {
+#    run check_matrix
+#    [ "$output" = "" ]
+#}
 
