@@ -11,7 +11,7 @@ setup() {
     cd $DIR/..
     jellyfish_count $TEST_TEMP_DIR
     jellyfish_dump $TEST_TEMP_DIR
-    cat $TEST_TEMP_DIR/D1-1-1_S6.CharFreq
+    cat data/charfreq/D1-1-1_S6.CharFreq
     #cal_d2s $TEST_TEMP_DIR
     #generate_matrix $TEST_TEMP_DIR
 }
