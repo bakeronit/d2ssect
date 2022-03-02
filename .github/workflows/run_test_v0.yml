@@ -2,7 +2,7 @@ name: run test v0
 on:
   push:
     paths:
-      - 'tests/test_v0.sh'
+      - 'tests/test_v0.bats'
 jobs:
   build:
     runs-on: ubuntu-latest
