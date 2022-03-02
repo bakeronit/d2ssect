@@ -22,26 +22,27 @@ jellyfish_dump() {
 
 cal_d2s() {
 	OUTDIR=$1
+	mkdir -p ${OUTDIR}/d2s
 	python2 v0/Calculate_D2S.py --kmerset1 ${OUTDIR}/DI-1-1_S6.nkz --kmerset1_freq ${OUTDIR}/DI-1-1_S6.CharFreq \
-    --kmerset2 ${OUTDIR}/FI-2-21_S28.nkz --kmerset2_freq ${OUTDIR}/FI-2-21_S28.CharFreq --D2S_out ${OUTDIR}/DI-1-1_S6-FI-2-21_S28.txt
+    --kmerset2 ${OUTDIR}/FI-2-21_S28.nkz --kmerset2_freq ${OUTDIR}/FI-2-21_S28.CharFreq --D2S_out ${OUTDIR}/d2s/DI-1-1_S6-FI-2-21_S28.txt
 	
 	python2 v0/Calculate_D2S.py --kmerset1 ${OUTDIR}/DI-1-1_S6.nkz --kmerset1_freq ${OUTDIR}/DI-1-1_S6.CharFreq \
-	--kmerset2 ${OUTDIR}/MI-1-19_S9.nkz --kmerset2_freq ${OUTDIR}/MI-1-19_S9.CharFreq --D2S_out ${OUTDIR}/DI-1-1_S6-MI-1-19_S9.txt
+	--kmerset2 ${OUTDIR}/MI-1-19_S9.nkz --kmerset2_freq ${OUTDIR}/MI-1-19_S9.CharFreq --D2S_out ${OUTDIR}/d2s/DI-1-1_S6-MI-1-19_S9.txt
 	
 	python2 v0/Calculate_D2S.py --kmerset1 ${OUTDIR}/DI-1-1_S6.nkz --kmerset1_freq ${OUTDIR}/DI-1-1_S6.CharFreq \
-	--kmerset2 ${OUTDIR}/TAY_9_S28.nkz --kmerset2_freq ${OUTDIR}/TAY_9_S28.CharFreq --D2S_out ${OUTDIR}/DI-1-1_S6-TAY_9_S28.txt
+	--kmerset2 ${OUTDIR}/TAY_9_S28.nkz --kmerset2_freq ${OUTDIR}/TAY_9_S28.CharFreq --D2S_out ${OUTDIR}/d2s/DI-1-1_S6-TAY_9_S28.txt
 
 	python2 v0/Calculate_D2S.py --kmerset1 ${OUTDIR}/FI-2-21_S28.nkz --kmerset1_freq ${OUTDIR}/FI-2-21_S28.CharFreq \
-	--kmerset2 ${OUTDIR}/MI-1-19_S9.nkz --kmerset2_freq ${OUTDIR}/MI-1-19_S9.CharFreq --D2S_out ${OUTDIR}/FI-2-21_S28-MI-1-19_S9.txt
+	--kmerset2 ${OUTDIR}/MI-1-19_S9.nkz --kmerset2_freq ${OUTDIR}/MI-1-19_S9.CharFreq --D2S_out ${OUTDIR}/d2s/FI-2-21_S28-MI-1-19_S9.txt
 
 	python2 v0/Calculate_D2S.py --kmerset1 ${OUTDIR}/FI-2-21_S28.nkz --kmerset1_freq ${OUTDIR}/FI-2-21_S28.CharFreq \
-	--kmerset2 ${OUTDIR}/TAY_9_S28.nkz --kmerset2_freq ${OUTDIR}/TAY_9_S28.CharFreq --D2S_out ${OUTDIR}/FI-2-21_S28-TAY_9_S28.txt
+	--kmerset2 ${OUTDIR}/TAY_9_S28.nkz --kmerset2_freq ${OUTDIR}/TAY_9_S28.CharFreq --D2S_out ${OUTDIR}/d2s/FI-2-21_S28-TAY_9_S28.txt
 
 	python2 v0/Calculate_D2S.py --kmerset1 ${OUTDIR}/MI-1-19_S9.nkz --kmerset1_freq ${OUTDIR}/MI-1-19_S9.CharFreq \
-	--kmerset2 ${OUTDIR}/TAY_9_S28.nkz --kmerset2_freq ${OUTDIR}/TAY_9_S28.CharFreq --D2S_out ${OUTDIR}/MI-1-19_S9-TAY_9_S28.txt
+	--kmerset2 ${OUTDIR}/TAY_9_S28.nkz --kmerset2_freq ${OUTDIR}/TAY_9_S28.CharFreq --D2S_out ${OUTDIR}/d2s/MI-1-19_S9-TAY_9_S28.txt
 }
 
 generate_matrix() {
 	OUTDIR=$1
-	python3 v0/phylip_amalg.py --data ${OUTDIR}/*.txt --matrix ${OUTDIR}/matrix.txt
+	python3 v0/phylip_amalg.py --data ${OUTDIR}/d2s --matrix ${OUTDIR}/matrix.txt
 }
