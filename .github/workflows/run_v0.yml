@@ -3,8 +3,6 @@ on:
   push:
     paths:
       - 'v0/**'
-      - 'd2ssect/**'
-      - 'd2ssect.py'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,5 +20,5 @@ jobs:
           sudo apt update && sudo apt install jellyfish
           pip3 install pandas
           jellyfish --version
-      - name: Run naive pipeline
-        run: bash v0/test_v0.sh
+      - name: run bash pipeline to generate benchmark data
+        run: bash v0/run_v0.sh
