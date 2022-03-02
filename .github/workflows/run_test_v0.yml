@@ -24,4 +24,4 @@ jobs:
           git submodule add https://github.com/bats-core/bats-support.git tests/test_helper/bats-support
           git submodule add https://github.com/bats-core/bats-assert.git tests/test_helper/bats-assert
       - name: Run tests
-        run: bats tests/run_test_v0.sh
+        run: bats tests/test_v0.bats
