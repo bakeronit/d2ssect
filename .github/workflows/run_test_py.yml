@@ -2,7 +2,7 @@ name: run test v0
 on:
   push:
     paths:
-      - 'tests/test_py'
+      - 'tests/test.py'
       - 'd2ssect/*'
 jobs:
   build:

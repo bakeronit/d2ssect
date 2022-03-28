@@ -31,6 +31,7 @@ class TestJellyfish(unittest.TestCase):
         outputf=os.path.join(self.test_dir,"D1-1-1_S6.nkz")
         
         jellyfish.dump(inputf, outputf)
+        print(outputf)
         expected_output="data/nkz/DI-1-1_S6.nkz"
 
         self.assertTrue(filecmp.cmp(outputf, expected_output))
