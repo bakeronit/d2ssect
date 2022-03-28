@@ -25,7 +25,7 @@ class TestJellyfish(unittest.TestCase):
         # only as jellyfish will not produce identical files from separate runs
         self.assertTrue(os.path.getsize(outputf),os.path.getsize(expected_output))
 
-        
+    """    
     def test_jfdump(self):
         inputf="data/jf/D1-1-1_S6.jf"
         outputf=os.path.join(self.test_dir,"D1-1-1_S6.nkz")
@@ -35,7 +35,7 @@ class TestJellyfish(unittest.TestCase):
         expected_output="data/nkz/DI-1-1_S6.nkz"
 
         self.assertTrue(filecmp.cmp(outputf, expected_output))
-
+    """
 
     def tearDown(self):
         shutil.rmtree(self.test_dir)
