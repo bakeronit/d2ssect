@@ -8,9 +8,8 @@ import d2ssect.jellyfish as jellyfish
 
 class TestJellyfish(unittest.TestCase):
 
-    def setUp(self) -> None:
+    def setUp(self):
         self.test_dir = tempfile.mkdtemp()
-        return super().setUp()
         
     def test_jfcount(self):
         inputf="data/fasta/DI-1-1_S6.fasta"
@@ -37,9 +36,8 @@ class TestJellyfish(unittest.TestCase):
         self.assertTrue(filecmp.cmp(outputf, expected_output))
 
 
-    def tearDown(self) -> None:
+    def tearDown(self):
         shutil.rmtree(self.test_dir)
-        return super().tearDown()
 
 if __name__ == '__main__':
     unittest.main()
