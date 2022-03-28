@@ -10,7 +10,6 @@ def count(input,output):
 
 
 def dump(input, output):
-	print(f"Dumping kmer count results from {input}")
 	dump_result = subprocess.Popen(["jellyfish","dump","-ct", input], stdout=subprocess.PIPE)
 	dump_sort = subprocess.Popen(["sort","-k1,1"],stdin=dump_result.stdout, stdout=subprocess.PIPE)
 	nkz_result = subprocess.run(["python2","v0/Kmers_2_NumbericRepresentation.py","-o", output])
