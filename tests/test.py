@@ -49,8 +49,7 @@ class TestJellyfish(unittest.TestCase):
         sample2 = "FI-2-21_S28"
         outputf = os.path.join(self.test_dir, "DI-1-1_S6_FI-2-21_S28.txt")
 
-        os.system(f"python v0/Calculate_D2S_py3.py --kmerset1 data/nkz/{sample1}.nkz --kmerset1_freq data/charfreq/{sample1}.CharFreq \
-            --kmerset2 data/nkz/{sample2}.nkz --kmerset2_freq data/charfreq/{sample2}.CharFreq --D2S_out {outputf}")
+        os.system(f"python v0/Calculate_D2S_py3.py --kmerset1 data/nkz/{sample1}.nkz --kmerset1_freq data/charfreq/{sample1}.CharFreq --kmerset2 data/nkz/{sample2}.nkz --kmerset2_freq data/charfreq/{sample2}.CharFreq --D2S_out {outputf}")
         expected_output = "data/d2s/DI-1-1_S6-FI-2-21_S28.txt"
 
         self.assertTrue(filecmp.cmp(outputf,expected_output))
