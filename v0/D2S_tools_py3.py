@@ -64,7 +64,7 @@ def Next_Kmer(Kmer_iter):
     finished and the other still has Kmers left. 
     '''
     try:
-        value, seq, count = Kmer_iter.next()
+        value, seq, count = next(Kmer_iter)
         return int(value), seq, int(count), True
     except StopIteration:
         return None, None, None, False
