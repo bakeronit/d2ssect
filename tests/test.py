@@ -15,7 +15,6 @@ class TestJellyfish(unittest.TestCase):
         inputf="data/fasta/DI-1-1_S6.fasta"
         outputf=tempfile.mkstemp()[1]
 
-        print(outputf)
         os.system("cat "+outputf)
         jellyfish.count(inputf,outputf)
 
@@ -27,12 +26,12 @@ class TestJellyfish(unittest.TestCase):
 
   
     def test_jfdump(self):
-        inputf="data/jf/DI-1-1_S6.jf"
-        outputf=os.path.join(self.test_dir,"DI-1-1_S6.nkz")
+        inputf = "data/jf/DI-1-1_S6.jf"
+        outputf = os.path.join(self.test_dir, "DI-1-1_S6.nkz")
         
         jellyfish.dump(inputf, outputf)
         print(outputf)
-        expected_output="data/nkz/DI-1-1_S6.nkz"
+        expected_output = "data/nkz/DI-1-1_S6.nkz"
 
         self.assertTrue(filecmp.cmp(outputf, expected_output))
 
@@ -42,6 +41,7 @@ class TestJellyfish(unittest.TestCase):
 
         os.system(f"python v0/Composition_of_InputSeqs_py3.py --fasta {inputf} --freq {outputf}")
         print(outputf)
+        print(outputf.readlines())
         expected_output="data/charfreq/DI-1-1_S6.CharFreq"
         self.assertTrue(filecmp.cmp(outputf, expected_output))
 
