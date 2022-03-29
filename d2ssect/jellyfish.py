@@ -16,5 +16,3 @@ def dump(input, output):
 	dump_result.stdout.close()
 	nkz_result = subprocess.run(["python","v0/Kmers_2_NumbericRepresentation_py3.py","-o", output], stdin=dump_sort.stdout)
 	nkz_result
-
-	
