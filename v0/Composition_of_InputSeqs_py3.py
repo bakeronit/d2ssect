@@ -56,7 +56,7 @@ def charcter_freq_from_fasta(in_fasta_fh, out_freq_fh, char_set, logger):
     totalChars = float(sum(char_set.values()))
     
     for char in sorted(char_set.keys()):
-        out_freq_fh.write(char + '\t' + str(char_set[char] / totalChars) + '\n')
+        out_freq_fh.write("{char}\t{str(char_set[char]/totalChars):.12}\n")
     out_freq_fh.write("NUM_SEQUENCES" + '\t' + str(totalSeqCount) + '\n')
     out_freq_fh.write("NUM_CHARACTERS" + '\t' + str(totalChars) + '\n')
 

@@ -36,8 +36,8 @@ class TestJellyfish(unittest.TestCase):
         self.assertTrue(filecmp.cmp(outputf, expected_output))
 
     def test_charfreq(self):
-        inputf="data/fasta/DI-1-1_S6.fasta"
-        outputf=os.path.join(self.test_dir, "DI-1-1_S6.CharFreq")
+        inputf = "data/fasta/DI-1-1_S6.fasta"
+        outputf = os.path.join(self.test_dir, "DI-1-1_S6.CharFreq")
 
         os.system(f"python v0/Composition_of_InputSeqs_py3.py --fasta {inputf} --freq {outputf}")
         print(outputf)
