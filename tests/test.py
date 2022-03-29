@@ -41,7 +41,9 @@ class TestJellyfish(unittest.TestCase):
 
         os.system(f"python v0/Composition_of_InputSeqs_py3.py --fasta {inputf} --freq {outputf}")
         print(open(outputf,'r').readlines())
+        print("-----------")
         expected_output = "data/charfreq/DI-1-1_S6.CharFreq"
+        print(open(expected_output,'r').readlines())
         self.assertTrue(filecmp.cmp(outputf, expected_output))
 
     def tearDown(self):
