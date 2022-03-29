@@ -2,7 +2,7 @@ name: run v0 with bash
 on:
   push:
     paths:
-      - 'v0/**'
+      - 'v0/Calculate_D2S.py'
 jobs:
   build:
     runs-on: ubuntu-latest
