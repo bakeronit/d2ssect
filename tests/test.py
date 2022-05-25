@@ -24,7 +24,6 @@ class TestJellyfish(unittest.TestCase):
         # only as jellyfish will not produce identical files from separate runs
         self.assertTrue(os.path.getsize(outputf),os.path.getsize(expected_output))
 
-  
     def test_jfdump(self):
         inputf = "data/jf/DI-1-1_S6.jf"
         outputf = os.path.join(self.test_dir, "DI-1-1_S6.nkz")
