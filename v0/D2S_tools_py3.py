@@ -70,11 +70,10 @@ def Next_Kmer(Kmer_iter):
         return None, None, None, False
 
 
-
 def iterate_Kmer_sets(KmerSet1_fh, KmerSet2_fh, logger, Both_KmerSets=True, KmerSet1_Only=True, KmerSet2_Only=True):
     '''
     Iterates over two sorterd kmer files and returns kmers where:
-        (1) Kmer is in KmerSet1 and KmerSet2 (Both_KmerSets)
+    (1) Kmer is in KmerSet1 and KmerSet2 (Both_KmerSets)
 	(1) Kmer is in KmerSet1 NOT KmerSet2 (KmerSet1_Only)
 	(1) Kmer is in KmerSet2 NOT KmerSet1 (KmerSet2_Only)
 	
@@ -97,11 +96,9 @@ def iterate_Kmer_sets(KmerSet1_fh, KmerSet2_fh, logger, Both_KmerSets=True, Kmer
     i = 0 ## LOOP - Keep count
     while KmerSet1_notDone or KmerSet2_notDone:
 	#logger.debug('Iteration %s: %s\t%s\t%s\t%s\t%s\t%s', i, KmerSet1_value, KmerSet1_seq, KmerSet1_count, KmerSet2_value, KmerSet2_seq, KmerSet2_count)
-		
     	# If Kmer is in BOTH datasets
         if KmerSet1_value == KmerSet2_value and KmerSet1_notDone and KmerSet2_notDone:
             logger.debug('%s\t%s\t%s\t%s\t%s\t%s', KmerSet1_value, KmerSet1_seq, KmerSet1_count, KmerSet2_value, KmerSet2_seq, KmerSet2_count)
-			
             if Both_KmerSets:
                 yield KmerSet1_seq, KmerSet1_count, KmerSet2_seq, KmerSet2_count
 			
@@ -109,7 +106,7 @@ def iterate_Kmer_sets(KmerSet1_fh, KmerSet2_fh, logger, Both_KmerSets=True, Kmer
             KmerSet2_value, KmerSet2_seq, KmerSet2_count, KmerSet2_notDone = Next_Kmer(KmerSet2)
 		
 	# If Kmer is in Dataset 1 ONLY
-        elif KmerSet1_value < KmerSet2_value and KmerSet1_notDone:
+        elif KmerSet1_notDone and KmerSet2_notDone and KmerSet1_value < KmerSet2_value:   # compare none Type to int will raise TypeError in python3
             logger.debug('%s\t%s\t%s\t%s\t%s\t%s', KmerSet1_value, KmerSet1_seq, KmerSet1_count, None, None, None)
 			
             if KmerSet1_Only:
@@ -118,7 +115,7 @@ def iterate_Kmer_sets(KmerSet1_fh, KmerSet2_fh, logger, Both_KmerSets=True, Kmer
             KmerSet1_value, KmerSet1_seq, KmerSet1_count, KmerSet1_notDone = Next_Kmer(KmerSet1)
 		
 	# If Kmer is in Dataset 2 ONLY
-        elif KmerSet1_value > KmerSet2_value and KmerSet2_notDone:
+        elif KmerSet2_notDone and KmerSet1_notDone and KmerSet1_value > KmerSet2_value:
             logger.debug('%s\t%s\t%s\t%s\t%s\t%s', None, None, None, KmerSet2_value, KmerSet2_seq, KmerSet2_count)
 			
             if KmerSet2_Only:

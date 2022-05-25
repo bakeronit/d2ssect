@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+from posixpath import basename
 import tempfile
 import shutil
 import os
@@ -27,6 +28,8 @@ for f in args.inputfiles:
 	print(of)
 	result = jellyfish.count(f,of[1])
 	print(result)
+
+
 
 
 # If cleanup
