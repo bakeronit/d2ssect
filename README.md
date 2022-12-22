@@ -19,3 +19,17 @@ Our goal is to integrate these three steps and try to increase the speed of d2s 
 	- Jellyfish 2.3.0
 	- python 3.8
 	- pandas
+
+## Usage
+
+Lets say we have a collection of fasta files corresponding to sequencing reads from samples that we want to compare with `d2ssect`.  First count kmers in these files using `jellyfish`
+
+```bash
+for f in *.fasta;do jellyfish count -m 21 -s 10000000 $f -o ${f%.fasta}.jf ;done
+```
+
+Note that the command above will create a corresponding `.jf` file for every `.fasta` file in the current directory. By keeping the base names of the `jf` and `fasta` files identical we can then run `d2ssect` as follows;
+
+```bash
+python3 ../d2ssect/d2ssect/main.py -l *.jf -f *.fasta
+```
