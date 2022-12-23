@@ -33,3 +33,10 @@ Note that the command above will create a corresponding `.jf` file for every `.f
 ```bash
 python3 ../d2ssect/d2ssect/main.py -l *.jf -f *.fasta
 ```
+
+
+## Building from source
+
+```
+CC=g++ pip install .
+```

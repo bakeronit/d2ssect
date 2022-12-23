@@ -12,4 +12,4 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
-d2ssect = "d2ssect:d2s"
+d2ssect = "d2ssect:d2ssectmain"

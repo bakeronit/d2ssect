@@ -1,8 +1,21 @@
 from d2ssect.utils import *
+from d2ssect import jellyfish
 import argparse, sys
 
+def cal_d2s_cpp(jf1, jf2, seqinfo1, seqinfo2,d2s_self1, d2s_self2):
+    n_seq1, total_len1, char_freq1 = seqinfo1
+    n_seq2, total_len2, char_freq2 = seqinfo2
 
-def d2s():
+    d2s = jellyfish.d2s(jf1,jf2,n_seq1,n_seq2,total_len1,total_len2, char_freq1,char_freq2)
+    return abs(math.log(d2s/math.sqrt(d2s_self1*d2s_self2)))
+
+
+def cal_d2s_self_cpp(jf, seqinfo):
+    n_seq, total_len, char_freq = seqinfo
+
+    return jellyfish.d2s(jf,jf,n_seq,n_seq,total_len,total_len, char_freq,char_freq)
+
+def d2ssectmain():
     parser = argparse.ArgumentParser(
         description='Calculate d2s distance from jellyfish kmer count results',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -41,10 +54,11 @@ def d2s():
 
     if args.threads == 1:
         seqinfo_list = [ get_seqinfo(seqfile) for seqfile in args.seq_files ]
-        d2s_self_list = [cal_d2s_self(jf, seqinfo) for jf, seqinfo in zip(args.jf_files, seqinfo_list)]
+
+        d2s_self_list = [cal_d2s_self_cpp(jf, seqinfo) for jf, seqinfo in zip(args.jf_files, seqinfo_list)]
 
         for i,j in index_combinations:
-            transformed_d2s = cal_d2s_and_transform(args.jf_files[i], args.jf_files[j], 
+            transformed_d2s = cal_d2s_cpp(args.jf_files[i], args.jf_files[j], 
                                         seqinfo_list[i], seqinfo_list[j], 
                                         d2s_self_list[i], d2s_self_list[j])
             d2s_combinations_list.append(transformed_d2s)
@@ -58,7 +72,7 @@ def d2s():
 
         seqinfo_list = pool1.map(get_seqinfo, args.seq_files)
         args_s1 = zip(args.jf_files, seqinfo_list)
-        d2s_self_list = pool1.starmap(cal_d2s_self, args_s1)
+        d2s_self_list = pool1.starmap(cal_d2s_self_cpp, args_s1)
         
         pool1.close()
 
@@ -67,7 +81,8 @@ def d2s():
         logging.info(f'Using {threads2} of cpus for cross-sample comparison parallisation')
 
         args_s2 = [(args.jf_files[i],args.jf_files[j],seqinfo_list[i],seqinfo_list[j],d2s_self_list[i],d2s_self_list[j]) for i,j in index_combinations]
-        d2s_combinations_list = pool2.starmap(cal_d2s_and_transform, args_s2)
+#        d2s_combinations_list = pool2.starmap(cal_d2s_and_transform, args_s2)
+        d2s_combinations_list = pool2.starmap(cal_d2s_cpp, args_s2)        
         d2s_matrix = generate_matrix(d2s_combinations_list, n_sample)
         
         pool2.close()
