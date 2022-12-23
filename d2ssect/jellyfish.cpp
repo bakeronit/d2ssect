@@ -1,3 +1,33 @@
+// The code for this module is based heavily on the code example count_in_file.cc given as part of the jellyfish source distribution
+//
+// modified from https://github.com/gmarcais/Jellyfish/blob/master/examples/count_in_file/count_in_file.cc
+//
+// Given a number of jellyfish databases, it retrieves all the k-mers
+// (in the union of the database) the number of occurrences in each of
+// the database and uses this for the d2s calculation
+
+// LIMITATION: all the databases must have been created with the same size
+// parameter to Jellyfish. It is advised to use the --disk switch of
+// 'jellyfish count' to ensure that all the database are created with the
+// same size. For example: jellyfish count -s 100M --disk ...
+
+// Some details
+// ============
+
+// The Jellyfish database are sorted list of k-mers. The sorting order is
+// based on the hash function (a random binary matrix). The program works
+// similarly to how merging sorted lists is done, but instead of summing
+// the count of each k-mers, it displays the count in each of the sorted
+// list.
+
+// Because all the files must be sorted according to the same criteria,
+// the size of the hash (and therefore the hash function) must be the
+// same for all the input files. See the LIMITATION paragraph above to
+// run Jellyfish properly. Note that the size passed to 'jellyfish count'
+// is NOT a limit on the number k-mers in the file (only a limit on the
+// number of mers in memory).
+
+
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include <iostream>
@@ -135,26 +165,6 @@ PyInit_jellyfish(void)
 // ----------
 typedef std::map<char, double> BaseFrequencyMap;
 
-// def get_num_possible_kmer(kmer: str, seqinfo: Tuple[dict, int]) -> float:
-//     n_seq, total_len, char_freq = seqinfo
-    
-//     k_len = len(kmer)   
-//     n_kmer = total_len - (n_seq * (k_len -1))
-
-//     p_kmer = reduce(mul, [char_freq[i] for i in kmer])
-
-//     return n_kmer * p_kmer
-
-// double get_num_possible_kmers(mer_dna kmer,long n_seq, long total_len, BaseFrequencyMap cf){
-
-// }
-
-// def d2s_calculation(kmc1, kmc2, np1, np2) -> float:
-
-//     norm_kmc1 = kmc1 - np1
-//     norm_kmc2 = kmc2 - np2
-
-//     return norm_kmc1 * norm_kmc2 / math.sqrt((norm_kmc1 ** 2 + norm_kmc2 ** 2))
 
 template<typename reader_type>
 double d2s_raw(cpp_array<file_info>& files, long n_seq1, long n_seq2, long total_len1, long total_len2, BaseFrequencyMap cf1, BaseFrequencyMap cf2) {
@@ -182,6 +192,8 @@ double d2s_raw(cpp_array<file_info>& files, long n_seq1, long n_seq2, long total
   double p_kmer2,norm_kmc2;
 
   double d2s = 0;
+  double d2s_self1 = 0;
+  double d2s_self2 = 0;
 
   while(heap.is_not_empty()) {
     key = head->key_;
@@ -194,24 +206,32 @@ double d2s_raw(cpp_array<file_info>& files, long n_seq1, long n_seq2, long total
       head = heap.head();
     } while(head->key_ == key && heap.is_not_empty());
 
-    if ( (counts[0] > 0) && (counts[1] > 0) ){
+    p_kmer1=1;
+    p_kmer2=1;
+    keystring = key.to_str();
+    for(int ki = 0;ki < key.k();ki++){
+    	p_kmer1*=cf1[keystring[ki]];
+    	p_kmer2*=cf1[keystring[ki]];
+    }
+    p_kmer1*=(total_len1 - (n_seq1*(key.k()-1)));
+    p_kmer2*=(total_len2 - (n_seq2*(key.k()-1)));
 
-	    p_kmer1=1;
-	    p_kmer2=1;
-	    keystring = key.to_str();
-	    for(int ki = 0;ki < key.k();ki++){
-	    	p_kmer1*=cf1[keystring[ki]];
-	    	p_kmer2*=cf1[keystring[ki]];
-	    }
-	    p_kmer1*=(total_len1 - (n_seq1*(key.k()-1)));
-	    p_kmer2*=(total_len2 - (n_seq2*(key.k()-1)));
-
+    if ( counts[0]> 0){
 	    norm_kmc1 = counts[0] - p_kmer1;
-	    norm_kmc2 = counts[1] - p_kmer2;
+	    d2s_self1 += norm_kmc1 * norm_kmc1 / sqrt((2*norm_kmc1*norm_kmc1));
 
+	}
+	if ( counts[1]>0){
+	    norm_kmc2 = counts[1] - p_kmer2;
+	    d2s_self2 += norm_kmc2 * norm_kmc2 / sqrt((2*norm_kmc2*norm_kmc2));	    
+	}
+	if ( counts[0]>0 && counts[1] > 0){
 	    d2s += norm_kmc1 * norm_kmc2 / sqrt((norm_kmc1*norm_kmc1  + norm_kmc2*norm_kmc2));
 	 }
+
   }
+
+  d2s = abs(log(d2s/sqrt(d2s_self1*d2s_self2)));
 
   return d2s;
 }
