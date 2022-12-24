@@ -2,8 +2,26 @@ from operator import mul
 from functools import reduce
 from typing import Tuple
 from collections import Counter
-from Bio.SeqIO.FastaIO import SimpleFastaParser
 import math, logging
+
+import multiprocessing, subprocess
+from itertools import combinations
+import numpy as np
+import math, logging, os, argparse, sys
+from os.path import exists
+
+
+def read_fasta(fp):
+    name, seq = None, []
+    for line in fp:
+        line = line.rstrip()
+        if line.startswith(">"):
+            if name: yield (name, ''.join(seq))
+            name, seq = line[1:], []
+        else:
+            seq.append(line)
+    if name: yield (name, ''.join(seq))
+
 
 def get_seqinfo(seqfile: str):
     """
@@ -22,7 +40,7 @@ def get_seqinfo(seqfile: str):
     n_seq = 0
     char_counter = Counter()
     with open(seqfile, 'r') as fh:
-        for name, seq in SimpleFastaParser(fh):
+        for name, seq in read_fasta(fh):
             n_seq += 1
             char_counter += Counter(seq)
     
@@ -34,19 +52,11 @@ def get_seqinfo(seqfile: str):
 
     return n_seq, total_len, char_freq
 
-def get_num_possible_kmer(kmer: str, seqinfo: Tuple[dict, int]) -> float:
-    n_seq, total_len, char_freq = seqinfo
+def generate_matrix(d2s_combinations_list, n_sample):
+    d2s_matrix = np.zeros((n_sample,n_sample),dtype='float')
+    triu = np.triu_indices(n_sample,k=1)
+    tril = np.tril_indices(n_sample, -1)
+    d2s_matrix[triu] = d2s_combinations_list
+    d2s_matrix[tril] = d2s_matrix.T[tril]
     
-    k_len = len(kmer)   
-    n_kmer = total_len - (n_seq * (k_len -1))
-
-    p_kmer = reduce(mul, [char_freq[i] for i in kmer])
-
-    return n_kmer * p_kmer
-
-def d2s_calculation(kmc1, kmc2, np1, np2) -> float:
-
-    norm_kmc1 = kmc1 - np1
-    norm_kmc2 = kmc2 - np2
-
-    return norm_kmc1 * norm_kmc2 / math.sqrt((norm_kmc1 ** 2 + norm_kmc2 ** 2))
+    return d2s_matrix

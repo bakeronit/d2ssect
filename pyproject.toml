@@ -1,0 +1,15 @@
+[project]
+name = "d2ssect"
+version = "0.0.1"
+dependencies = [
+    "requests",
+    'importlib-metadata; python_version<"3.8"',
+    'pandas',
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+d2ssect = "d2ssect:d2ssectmain"
