@@ -1,0 +1,38 @@
+name: linux install 
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+    steps: 
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with: 
+          python-version: ${{ matrix.python-version }}
+      - name: Install Jellyfish
+        run: |
+          wget https://github.com/gmarcais/Jellyfish/releases/download/v2.3.0/jellyfish-2.3.0.tar.gz
+          tar -zxvf jellyfish-2.3.0.tar.gz
+          cd jellyfish-2.3.0
+          ./configure
+          make
+          sudo make install
+          sudo ldconfig /usr/local/lib
+          jellyfish --version
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        run: |
+          python -m pip install .
+      - name: Test install worked
+        run: d2ssect -h
+      - name: Install BATS
+        run: |
+          npm install -g bats
+          git submodule add https://github.com/bats-core/bats-support.git tests/test_helper/bats-support
+          git submodule add https://github.com/bats-core/bats-assert.git tests/test_helper/bats-assert
+      - name: Run bats tests
+        run: export BATS_LIBDIR="test_helper/";bats tests/test.bats
