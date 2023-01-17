@@ -29,7 +29,6 @@ teardown() {
 
 @test "d2ssect works with fasta and jf input" {
     d2ssect -l ${TEST_DATA_DIR}/jf/*.jf -f ${TEST_DATA_DIR}/fasta/*.fasta 2>/dev/null  > ${TEST_TEMP_DIR}/test_matrix.txt
-
     matrix_diff=$(diff ${TEST_TEMP_DIR}/test_matrix.txt ${TEST_DATA_DIR}/matrix.txt)
     assert_equal ${matrix_diff} ""
 }
