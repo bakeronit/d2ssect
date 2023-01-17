@@ -1,24 +1,28 @@
 # d2ssect
 
-![example workflow](https://github.com/bakeronit/d2ssect/actions/workflows/run_test_v0.yml/badge.svg)
+![conda install test badge](https://github.com/iracooke/d2ssect/actions/workflows/conda.yml/badge.svg)
+![linux install test badge](https://github.com/iracooke/d2ssect/actions/workflows/linux.yml/badge.svg)
+![macos install test badge](https://github.com/iracooke/d2ssect/actions/workflows/macos.yml/badge.svg)
 
-A tool to calculate d2s scores using short fastq reads
-This repo will test and benchmark the existing [alignment-free tools](https://github.com/chanlab-genomics/alignment-free-tools) and the improving versions.
+d2ssect (pronounced dissect) calculates an alignment-free distance between samples based on frequencies of shared kmers. It provides a fast implementation d2s statistics used by [the chan lab](https://github.com/chanlab-genomics/alignment-free-tools) for [alignment-free phylogenetic analysis](https://pubmed.ncbi.nlm.nih.gov/33961218/). 
 
-The originally version of this pipeline including three big steps:
-1. get jellyfish count results
-2. calculate d2s using jellyfish dump results of every pair of samples
-3. generate a matrix
-
-Our goal is to integrate these three steps and try to increase the speed of d2s calculation.
 
 
 ## Installation
 
-1. Install dependencies
-	- Jellyfish 2.3.0
-	- python 3.8
-	- pandas
+`d2ssect` relies heavily on [jellyfish](https://github.com/gmarcais/Jellyfish).  You need the jellyfish program and also the jellyfish libraries.  To check that jellyfish is installed you can do;
+```bash
+jellyfish --version
+```
+Which should return a version > 2. In addition, you need the jellyfish libraries and headers. If you installed jellyfish via `conda` or by compiling from source these will be present in the right locations.  If you installed it your linux package manager they probably won't be present. 
+
+If you do not want to use `conda` we recommend installing Jellyfish from source.  Once done you should then be able to install `d2ssect` using pip
+
+```bash
+pip3 install d2ssect
+```
+
+
 
 ## Usage
 
