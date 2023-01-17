@@ -19,8 +19,8 @@ d2ssect -h
 
 Alternatively, you may use an existing Jellyfish installation, or install Jellyfish without using conda. If using this method please note that;
 
-	- Jellyfish version 2 is required (Jellyfish 1 will not work)
-	- Installation of Jellyfish via linux package managers will not work as this installs the jellyfish binary but not libraries and headers needed by `d2ssect`
+- Jellyfish version 2 is required (Jellyfish 1 will not work)
+- Installation of Jellyfish via linux package managers will not work as this installs the jellyfish binary but not libraries and headers needed by `d2ssect`
 
 Once Jellyfish is installed you should then be able to install `d2ssect` using pip or pip3 as follows
 ```bash
