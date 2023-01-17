@@ -35,7 +35,7 @@ for f in *.fasta;do jellyfish count -m 21 -s 10000000 $f -o ${f%.fasta}.jf ;done
 Note that the command above will create a corresponding `.jf` file for every `.fasta` file in the current directory. By keeping the base names of the `jf` and `fasta` files identical we can then run `d2ssect` as follows;
 
 ```bash
-python3 ../d2ssect/d2ssect/main.py -l *.jf -f *.fasta
+d2ssect -l *.jf -f *.fasta
 ```
 
 
