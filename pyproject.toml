@@ -1,15 +1,19 @@
 [project]
 name = "d2ssect"
-version = "0.0.1"
+version = "0.0.8"
+description = "Calculate d2s scores from short reads"
+readme = "README.md"
+authors = [{ name = "Jia Zhang", email = "jia.zhang2@my.jcu.edu.au" },
+{ name = "Ira Cooke", email = "ira.cooke@jcu.edu.au" }]
+license = { file = "LICENSE" }
 dependencies = [
-    "requests",
-    'importlib-metadata; python_version<"3.8"',
-    'pandas',
+    'tomli; python_version < "3.11"'
 ]
+requires-python = ">=3.7"
 
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=40.8.0","wheel"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
-d2ssect = "d2ssect:d2ssectmain"
+d2ssect = "d2ssect.__main__:main"
